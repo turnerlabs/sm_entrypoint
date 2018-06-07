@@ -10,7 +10,7 @@ Modify the script `go-executable-build.sh` to build your binaries for your archi
 
 Run `./go-execuable-build.sh`
 
-Executables will have the form `sm_entrypoint-$GOOS-$GOARCH`.  Choose the one you need for each and mv/copy it to your docker
+Executables will have the form `sm_entrypoint-$GOOS-$GOARCH`.  Choose the one you need for each docker image and mv/copy it to your docker
 build directory.  Then add binary in your Dockerfile.
 
 ## Usage
