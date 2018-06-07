@@ -4,15 +4,25 @@ A simple entrypoint to load AWS SecretManager Secrets into the OS environment.
 
 Credentials must be set properly for this command to work (either via ENV Vars or preferably an IAM Assumed Role).
 
-## build
+## Build
+
+Modify the script `go-executable-build.sh` to build your binaries for your architectures.
+
+Run `./go-execuable-build.sh`
+
+Executables will have the form `sm_entrypoint-$GOOS-$GOARCH`.  Choose the one you need for each and mv/copy it to your docker
+build directory.  Then add binary in your Dockerfile.
 
 ## Usage
 
 ```Dockerfile
-ENTRYPOINT ["/app/sm_entrypoint"]
+ADD sm_entrypoint-$GOOS-$GOARCH /my/app/sm_entrypoint
+
+ENTRYPOINT ["/my/app/sm_entrypoint"]
 
 CMD ["/my/app/start_script_or_command"]
 ```
+Replace `$GOOS` and `$GOARCH` with values for your docker image
 
 The following ENV Vars can be set to control sm_entrypoint behavior.
 ## ENV VARS
