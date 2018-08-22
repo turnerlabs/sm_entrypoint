@@ -33,7 +33,7 @@ main() {
     fi
 
     # check the arguments
-    for platform; do
+    for platform in "$@"; do
       case "$platform" in
         */*) :;;
         -h) usage 0;;
@@ -47,11 +47,12 @@ main() {
     set -- "$(go env GOOS)/$(go env GOARCH)"
   fi
 
+  local os arch output_name
   for platform in "$@"; do
     printf 'Building for %s...' "$platform"
     IFS=/ read os arch <<<"$platform"
-    output_name=$package_name-$GOOS-$GOARCH
-    if ! GOOS=$os GOARCH=$arch go build -o $output_name .; then
+    output_name=$package_name-$os-$arch
+    if ! GOOS=$os GOARCH=$arch go build -o "$output_name" .; then
         printf '\n'
         printf >&2 "%s: build for '%s' failed. Aborting.\n" "$0" "$platform"
         exit 1
