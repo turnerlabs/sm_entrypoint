@@ -52,11 +52,11 @@ main() {
     IFS=/ read os arch <<<"$platform"
     output_name=$package_name-$GOOS-$GOARCH
     if ! GOOS=$os GOARCH=$arch go build -o $output_name .; then
-        echo
-        echo >&2 "$0: build for '$platform' failed. Aborting."
+        printf '\n'
+        printf >&2 "%s: build for '%s' failed. Aborting.\n" "$0" "$platform"
         exit 1
     fi
-    echo done.
+    printf 'done.\n'
   done
 }
 
