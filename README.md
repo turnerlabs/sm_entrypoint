@@ -11,7 +11,7 @@ Modify the script `go-executable-build.sh` to build your binaries for your archi
 Run `./go-execuable-build.sh`
 
 Executables will have the form `sm_entrypoint-${GOOS}-${GOARCH}`.  Choose the one you need for each docker image and mv/copy it to your docker
-build directory.  Then add binary in your Dockerfile.
+build directory.  Then add the binary in your Dockerfile.
 
 ## Usage
 Either build from the latest code or download a release from git:  `https://github.com/turnercode/sm_entrypoint/releases/download/${release_tag}/sm_entrypoint-${GOOS}-${GOARCH}`
