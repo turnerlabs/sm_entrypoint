@@ -3,17 +3,17 @@
 # The name of our package
 package_name=sm_entrypoint
 
-# By default, we build for the platform we're running on;
-# other platforms can be requested as command-line arguments of
-# the form $GOOS/$GOARCH. If -a is passed in, we build for our two
-# primary targets: linux/amd64 and darwin/amd64.
+# Display usage message on error or help request.
 usage() {
-    printf >&2 'Usage: %s [-a] [os/arch ...]\n' "$0"
+    printf >&2 '\nUsage: %s [-h] [-a] [os/arch ...]\n\n' "$0"
     printf >&2 'Build %s for the given platforms.\n\n' "$package_name"
 
-    printf >&2 'With no arguments, build for configured Go platform;\n'
-    printf >&2 '%s triggers builds for linux/amd64 and darwin/amd64;\n' '-a'
-    printf >&2 'other arguments are interpreted as $GOOS/$GOARCH.\n'
+    printf >&2 'With no arguments, build for the locally-configured\n'
+    printf >&2 'default Go platform.\n\n'
+    printf >&2 '%s\tDisplay this message.\n' '-h'
+    printf >&2 '%s\tBuild for linux/amd64 and darwin/amd64.\n\n' '-a'
+    printf >&2 'Other arguments are interpreted as target platform specifiers\n'
+    printf >&2 'of the form $GOOS/$GOARCH.\n\n'
 
     exit $1
 }
