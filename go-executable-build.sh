@@ -29,7 +29,7 @@ main() {
 
     if [[ "$1" == -a ]]; then
       shift
-      set -- linux/amd64 darwin/amd64 "$@"
+      set -- linux/386 linux/amd64 darwin/amd64 "$@"
     fi
 
     # check the arguments
