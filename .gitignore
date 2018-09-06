@@ -1,1 +1,4 @@
 sm_entrypoint-*
+out/
+dist/
+bin/
