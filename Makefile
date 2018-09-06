@@ -4,9 +4,9 @@ NAME := sm_entrypoint
 BUILD_VERSION := $(shell git describe --tags)
 
 deps:
-	go get github.com/mitchellh/gox
-	go get github.com/tcnksm/ghr
-
+	go get -u github.com/mitchellh/gox
+	go get -u github.com/tcnksm/ghr
+	go get -u github.com/aws/aws-sdk-go/...
 build:
 	echo building bin/${NAME}
 	go build -o bin/${NAME} .
