@@ -6,13 +6,13 @@ Credentials must be set properly for this command to work (either via ENV Vars o
 
 ## Build
 
-The build script is intended to facilitate cross-platform compiling.
+A Makefile is included to facilitate building.
 
-If you desire, you can modify the script `go-executable-build.sh` to build your binaries for your architectures.
+`make build` will build a binary for your automatically detected GOOS and GOARCH.  It will place the binary in `bin/` directory.
 
-Run `./go-execuable-build.sh`
+If you choose, you can also build for multiple distributions with `make dist`.  You can examine the Makefile and change or add to the list of GOOS and GOARCH combinations.
 
-Executables will have the form `sm_entrypoint-${GOOS}-${GOARCH}`.  Choose the one you need for each docker image and mv/copy it to your docker
+Executables will have the form `sm_entrypoint-${GOOS}-${GOARCH}` and will be placed in the `dist/` directory.  Choose the one you need for each docker image and mv/copy it to your docker
 build directory.  Then add the binary in your Dockerfile.
 
 ## Usage
@@ -40,6 +40,10 @@ Replace `${release_tag}`, `${GOOS}` and `${GOARCH}` with values for your docker 
 The following ENV Vars can be set to control sm_entrypoint behavior.
 
 - __SM_VARS__ - Comma separated list of Secrets Manager secret names.
+
+  ```
+  SM_VARS=secret-name-1,secret-name-2[,....]
+  ```
 
 The __SM_VARS__ ENV var must be set for sm_entrypoint to know what secrets to load into the environment. If it is missing, the
 sm_entrypoint will skip loading any variables and will transfer control the command passed to it.

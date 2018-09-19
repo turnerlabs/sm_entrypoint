@@ -1,0 +1,38 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/golang:stretch
+    steps:
+      - checkout
+      - run:
+          name: Get Go Deps - if needed
+          command: |
+            git config --global user.email circleci@turnerlabs.io
+            git config --global user.name CircleCI
+            make deps
+      - run:
+          name: multi-platform build (for develop and master)
+          command: make dist
+      - run:
+          name: deploy develop to github pre-release
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "develop" ]; then
+              make prerelease
+            fi
+      - run:
+          name: deploy master to github release
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              make release
+            fi
+workflows:
+   version: 2
+   build:
+     jobs:
+       - build:
+          filters:
+            branches:
+              only:
+                - master
+                - develop
