@@ -39,10 +39,10 @@ Replace `${release_tag}`, `${GOOS}` and `${GOARCH}` with values for your docker 
 ## ENV VARS
 The following ENV Vars can be set to control sm_entrypoint behavior.
 
-- __SM_VARS__ - Comma separated list of Secrets Manager secret names.
+- __SM_VARS__ - Comma separated list of Secrets Manager secret names, and optionally secret versions separated by a ":".
 
   ```
-  SM_VARS=secret-name-1,[secret-name-2,....]
+  SM_VARS=secret-name-1[:version1],[secret-name-2[:AWSCURRENT],....]
   ```
 
 The __SM_VARS__ ENV var must be set for sm_entrypoint to know what secrets to load into the environment. If it is missing, the
