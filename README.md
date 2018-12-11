@@ -39,7 +39,15 @@ Replace `${release_tag}`, `${GOOS}` and `${GOARCH}` with values for your docker 
 ## ENV VARS
 The following ENV Vars can be set to control sm_entrypoint behavior.
 
-- __SM_VARS__ - Comma separated list of Secrets Manager secret names, and optionally secret versions separated by a ":".
+- __SM_VARS__ - Comma separated list of Secrets Manager secret names, and optionally secret versions separated by a ":". There are two special "version labels", AWSCURRENT and AWSPREVIOUS,
+that describe the stage of a secret.  The secret can only have 1 AWSCURRENT and AWSPREVIOUS label, which automatically gets set if a version label is not applied at update.  AWSCURRENT represents
+the secret that AWS SecretsManager considers the "active" secret and will be the secret the console displays.  The AWSPREVIOUS secret label is applied to the secret that last had the AWSCURRENT
+label.  Neither of these labels is required on a secret.  If you manually create a version label and do not also include AWSCURRENT, neither AWSCURRENT or AWSPREVIOUS labels will be moved.
+
+The version label must be unique on a secret version.  If the same version label is applied to a different secret, then the version label is moved to that different secret.  The PutSecretValue 
+documentation, <https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_PutSecretValue.html>, best describes this functionality.  With care, version labels can be used to store 
+up to 18 different versions of a secrets:
+<https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_limits.html>
 
   ```
   SM_VARS=secret-name-1[:version1],[secret-name-2[:AWSCURRENT],....]
