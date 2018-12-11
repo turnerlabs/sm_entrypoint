@@ -22,7 +22,7 @@ func loadSecrets(svc *secretsmanager.SecretsManager, names string) {
       version = s_data[1]
     }
 
-    log.Printf("This SM_VAR is %s\nGetting Variable (name: %s) version %s", temp, name, version)
+    log.Printf("This SM_VAR is %s\nGetting Variable (name: %s, version %s)", temp, name, version)
 
     ret, err := svc.GetSecretValue(&secretsmanager.GetSecretValueInput{
       SecretId: aws.String(name),
@@ -30,13 +30,13 @@ func loadSecrets(svc *secretsmanager.SecretsManager, names string) {
     })
 
     if err != nil {
-      log.Fatalf("secretsmanager:GetSecretValue failed. (name: %s)\n %v", name, err)
+      log.Fatalf("secretsmanager:GetSecretValue failed. (name: %s, version: %s)\n %v", name, version, err)
     }
 
     secrets := make(map[string]string)
     err = json.Unmarshal([]byte(aws.StringValue(ret.SecretString)), &secrets)
     if err != nil {
-      log.Fatalf("secretsmanager:GetSecretValue returns invalid json. (name: %s)\n %v", name, err)
+      log.Fatalf("secretsmanager:GetSecretValue returns invalid json. (name: %s, version: %s)\n %v", name, version, err)
     }
 
     for key, val := range secrets {

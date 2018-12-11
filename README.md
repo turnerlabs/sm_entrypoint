@@ -50,7 +50,7 @@ up to 18 different versions of a secrets:
 <https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_limits.html>
 
   ```
-  SM_VARS=secret-name-1[:version1],[secret-name-2[:AWSCURRENT],....]
+  SM_VARS=secret-name-1[:version1],[secret-name-2[:version2],....]
   ```
 
 The __SM_VARS__ ENV var must be set for sm_entrypoint to know what secrets to load into the environment. If it is missing, the
